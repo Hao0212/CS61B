@@ -22,7 +22,7 @@ public class IntListTest {
 
     @Test
     public void testdSquareList() {
-        IntList L = IntList.of(1, 2, 3);
+        IntList L = IntList.of(1, 2, 3); // This is a easier method to create IntList
         IntList.dSquareList(L);
         assertEquals(IntList.of(1, 4, 9), L);
     }
@@ -66,4 +66,6 @@ public class IntListTest {
         assertEquals(IntList.of(1, 2, 3), A);
     }
 
+
 }
+
