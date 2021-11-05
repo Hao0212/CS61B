@@ -66,6 +66,7 @@ public class LinkedListDeque<T> {
             System.out.print(sentinalF.next.item + " ");
             sentinalF.next = sentinalF.next.next;
         }
+        System.out.println();
     }
 
     public T removeFirst(){
@@ -97,6 +98,23 @@ public class LinkedListDeque<T> {
         return sentinalF.next.item;
     }
 
+    public T getTecursiveHelP(Denode p, int index){
+        if (index == 0){
+            return p.next.item;
+        }else {
+            p = p.next;
+            index -= 1;
+        }
+        return getTecursiveHelP(p,index);
+    }
+
+    public T getRecursive(int index){
+        if(index + 1 > size){
+            return null;
+        }
+        Denode p = sentinalF;
+        return getTecursiveHelP(p,index);
+    }
     public static void main(String[] args) {
        LinkedListDeque<Integer> L = new LinkedListDeque<>();
        System.out.println(L.isEmpty());
