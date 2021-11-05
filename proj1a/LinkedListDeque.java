@@ -52,7 +52,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty(){
-        if (sentinalF.next == sentinalB & sentinalB.prev == sentinalF){
+        if (sentinalF.next == sentinalB){
             return true;}
         return false;
         }
@@ -73,6 +73,7 @@ public class LinkedListDeque<T> {
             return null;
         }
         sentinalF.next = sentinalF.next.next;
+        size -= 1;
         return sentinalF.next.item;
     }
 
@@ -82,6 +83,7 @@ public class LinkedListDeque<T> {
         }
         sentinalB.prev = sentinalB.prev.prev;
         sentinalB.prev.next = sentinalB;
+        size -= 1;
         return sentinalB.prev.item;
     }
 
@@ -96,10 +98,10 @@ public class LinkedListDeque<T> {
     }
 
     public static void main(String[] args) {
-       LinkedListDeque<Integer> L = new LinkedListDeque<>(5);
+       LinkedListDeque<Integer> L = new LinkedListDeque<>();
+       System.out.println(L.isEmpty());
        L.addFirst(10);
-       L.addLast(15);
        L.removeFirst();
-       L.removeLast();
+       System.out.println(L.isEmpty());
     }
 }
