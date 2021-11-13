@@ -13,21 +13,23 @@ public class ArrayDeque<T> {
     private int last = 1;
     private int capacity = 8;
 
-    public T[] copyDeque(T[] items){
+    public void copyDeque(T[] copyarray){
         int index = (first+1) % capacity;
         int tempsize = size;
-        T[] b = (T[])new Object[tempsize];
         for(int bindex = 0; bindex < tempsize; bindex++){
-            b[bindex] = items[index];
-            index = index + 1 < capacity - 1 ? index + 1 :  0;
+            copyarray[bindex] = items[index];
+            // index = (index + 1) < capacity - 1 ? index + 1 :  0;
+            // This syntax will miss the element index = 7
+            index = (index + 1) % capacity;
         }
-        return b;
+        items = copyarray;
+
 
     }
     
     public void resize(T[] items){
         T[] largerarray = (T[]) new Object[size * 2];
-        items = copyDeque(largerarray);
+        copyDeque(largerarray);
         capacity = size * 2;
         first = capacity - 1;
         last = size;
@@ -35,8 +37,7 @@ public class ArrayDeque<T> {
     
     public void shrink(T items[]){
         T[] smallerarray = (T[]) new Object[size / 2];
-        items = copyDeque(smallerarray);
-        items = smallerarray;
+        copyDeque(smallerarray);
         capacity = size / 2;
         first = capacity - 1;
         last = size;
@@ -54,6 +55,7 @@ public class ArrayDeque<T> {
             resize(items);
         }
         items[first] = item;
+        // first is always subtract on, so use the  if condition ?
         first = first - 1 < 0 ? capacity - 1 : first -1;
         size += 1;
 
@@ -63,9 +65,14 @@ public class ArrayDeque<T> {
         if (size == capacity){
             resize(items);
         }
-        items[last] = item;
-        last = last + 1 < capacity - 1 ? last + 1 : 0;
-        size += 1;
+        if (size == 0){
+            items[first] = item;
+            first = first - 1 < 0 ? capacity - 1 : first -1;
+        }else {
+            items[last] = item;
+            last = (last + 1) % capacity;
+        }
+        size ++;
 
     }
 
@@ -80,14 +87,24 @@ public class ArrayDeque<T> {
     public void printDeque(){
         int i = 1;
         while (i <= size){
-            System.out.println(items[first + 1]);
-            first = first + 1 < capacity - 1 ? first + 1 : -1;
+            if( first + 1 == capacity){
+                System.out.println(items[0]);
+                first = 0;
+            }else {
+                System.out.println(items[first + 1]);
+                first ++;
+            }
+            first = first % size;
             i += 1;
         }
     }
 
+    // Two situation: array is empty and remove item
     public T removeFirst(){
-        T removedItem = items[first + 1];
+       if(size == 0){
+           return null;
+       }
+       T removedItem = items[first];
         items[first + 1] = null;
         first += 1;
         size -= 1;
@@ -98,6 +115,7 @@ public class ArrayDeque<T> {
 
     }
 
+    // Two situation: array is empty and remove item
     public T removeLast(){
         T removedItem = items[last - 1];
         items[last - 1] = null;
@@ -124,6 +142,10 @@ public class ArrayDeque<T> {
         l.addLast(30);
         l.addLast(35);
         l.addLast(40);
+        l.printDeque();
+
+        l.removeFirst();
+        l.removeLast();
         l.printDeque();
 
     }
