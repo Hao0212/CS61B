@@ -129,18 +129,20 @@ public class IntList {
 
         return newIntlist;
     }
-
-
-
-
-
-
-
-
-
-
-
-
+    public static IntList reverse(IntList l) {
+        /**
+         * Returns the reverse of the given IntList.
+         * This method is destructive. If given null
+         * as an input, returns null.
+         */
+        if(l == null || l.rest == null){
+            return l;
+        }
+        IntList reversed = reverse(l.rest);
+        l.rest.rest = l;
+        l.rest = null;
+        return reversed;
+    }
 
 
 
@@ -241,12 +243,6 @@ public class IntList {
                 return cnt;
             }
         }
-    }
-
-    public  static Intlist reverse(IntList A){
-
-        return null;
-
     }
 
     @Override

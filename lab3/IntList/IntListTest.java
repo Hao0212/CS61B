@@ -12,7 +12,8 @@ public class IntListTest {
 
     @Test
     public void testList() {
-        IntList one = new IntList(1, null);
+        IntList one;
+        one = new IntList(1, null);
         IntList twoOne = new IntList(2, one);
         IntList threeTwoOne = new IntList(3, twoOne);
 
@@ -39,6 +40,18 @@ public class IntListTest {
      * Keep in mind that dcatenate(A, B) is NOT required to leave A untouched.
      * Anything can happen to A.
      */
+    @Test
+    public void testReverse(){
+        IntList L = null;
+        IntList res = IntList.reverse(L);
+        assertEquals(null,L);
+        assertEquals(null,res);
+
+        IntList A = IntList.of(1,2,3);
+        IntList B = IntList.reverse(A);
+        assertEquals(IntList.of(1,2,3),A);
+        assertEquals(IntList.of(3,2,1),B);
+    }
 
     @Test
     public void testSquareListRecursive() {

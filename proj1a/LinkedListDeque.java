@@ -115,6 +115,7 @@ public class LinkedListDeque<T> {
         Denode p = sentinalF;
         return getTecursiveHelP(p,index);
     }
+
     public static void main(String[] args) {
        LinkedListDeque<Integer> L = new LinkedListDeque<>();
        System.out.println(L.isEmpty());
